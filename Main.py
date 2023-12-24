@@ -4,16 +4,16 @@ from sympy import nextprime
 import math
 from MD import MD
 
-READ_FILE_PATH = r"C:\Users\itama\PycharmProjects\pythonProject\Proj\myHit\A.txt"
-WRITE_FILE_PATH = r"C:\Users\itama\PycharmProjects\pythonProject\Proj\myHit\ads.txt"
+READ_FILE_PATH = r"C:\Users\itama\PycharmProjects\pythonProject\Proj\myHit\fileFrom.txt"
+WRITE_FILE_PATH = r"C:\Users\itama\PycharmProjects\pythonProject\Proj\myHit\FileTo.txt"
 
 if __name__ == "__main__":
     NUM_OF_COMPUTERS = 5
     readF.SetChunkSize(NUM_OF_COMPUTERS, READ_FILE_PATH)
     largest_number_possible = int(math.pow(2, (readF.GetChunkSize() * 8)) - 1)
-    modulus = int(nextprime(largest_number_possible))
-    print(modulus)
-    MD.set_modulus(modulus)
+    m = int(nextprime(largest_number_possible))
+    print(m)
+    MD.modulus = m
 
 
     byte_chunks_from_file = readF.FileToIntList(READ_FILE_PATH)
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     print(indexed_bytes)
     input()  ###
 
-    num_of_points = byte_chunks_from_file[0] // 2
+    num_of_points = byte_chunks_from_file[0]
     p_list = list()
     for p in indexed_bytes:
         p_list.append(Data(p[0], p[1]))
@@ -35,7 +35,6 @@ if __name__ == "__main__":
 
     new_points_list = list()
     for i in range(num_of_points * 2):
-        # print(f"{num_of_points*2 - i}..", end="")
         new_points_list.append(Data(i, interpolate(p_list, MD(i), MD(len(p_list))).value))
     print(new_points_list)
     input()  ###

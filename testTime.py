@@ -4,8 +4,7 @@ from lagrange_interlopation import *
 from sympy import nextprime
 import time
 
-READ_FILE_PATH = r"C:\Users\itama\PycharmProjects\pythonProject\Proj\myHit\A.txt"
-WRITE_FILE_PATH = r"C:\Users\itama\PycharmProjects\pythonProject\Proj\myHit\ads.txt"
+
 
 
 def RunOfLagrangeInterpolatein(ChunkSize):

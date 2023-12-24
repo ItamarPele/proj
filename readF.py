@@ -32,19 +32,18 @@ def FileToIntList(file_path):
     for i in range(num_of_bytes // ChunkSize):
         byte_chunk = data[i * ChunkSize:(i + 1) * ChunkSize]
         int_ls += [int.from_bytes(byte_chunk, 'little', signed=False)]
-    print(int_ls)
+    int_ls = [len(int_ls)+1] + int_ls
     return int_ls
 
 
 def IntListToFile(int_ls, file_path):
     global ChunkSize
-    num_of_bytes = int_ls[0]
     additional_bytes = int_ls[1]
 
     int_ls = int_ls[2:]
     data = bytes()
     for i in range(len(int_ls)):
-        b = int_ls[i]  # this is error
+        b = int_ls[i]
         b = b.to_bytes(ChunkSize, 'little', signed=False)
         data += b
 
