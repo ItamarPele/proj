@@ -1,10 +1,20 @@
 from lagrange_interlopation import *
 import readF
+from sympy import nextprime
+import math
+from MD import MD
 
 READ_FILE_PATH = r"C:\Users\itama\PycharmProjects\pythonProject\Proj\myHit\A.txt"
 WRITE_FILE_PATH = r"C:\Users\itama\PycharmProjects\pythonProject\Proj\myHit\ads.txt"
 
 if __name__ == "__main__":
+    NUM_OF_COMPUTERS = 5
+    readF.SetChunkSize(NUM_OF_COMPUTERS, READ_FILE_PATH)
+    largest_number_possible = int(math.pow(2, (readF.GetChunkSize() * 8)) - 1)
+    modulus = int(nextprime(largest_number_possible))
+    print(modulus)
+    MD.set_modulus(modulus)
+
 
     byte_chunks_from_file = readF.FileToIntList(READ_FILE_PATH)
 
@@ -25,7 +35,7 @@ if __name__ == "__main__":
 
     new_points_list = list()
     for i in range(num_of_points * 2):
-        #print(f"{num_of_points*2 - i}..", end="")
+        # print(f"{num_of_points*2 - i}..", end="")
         new_points_list.append(Data(i, interpolate(p_list, MD(i), MD(len(p_list))).value))
     print(new_points_list)
     input()  ###
@@ -36,7 +46,7 @@ if __name__ == "__main__":
 
     original_list = []
     for i in range(num_of_points):
-        #print(f"{num_of_points - i}..", end="")
+        # print(f"{num_of_points - i}..", end="")
         original_list.append((i, interpolate(half_of_points, MD(i), MD(len(half_of_points))).value))
     print(original_list)
     input()  ###
@@ -48,8 +58,6 @@ if __name__ == "__main__":
     input()  ###
 
     readF.IntListToFile(original_bytes, WRITE_FILE_PATH)
-
-
 
 # Lagrange code is contributed by
 # sanjeev2552

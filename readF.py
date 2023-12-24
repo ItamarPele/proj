@@ -1,8 +1,18 @@
-ChunkSize = 2  # 2 bytes
+import os
+import math
 
-def SetChunkSize(Chunk):
+ChunkSize = 0  # 2 bytes
+
+
+def SetChunkSize(num_of_chunks, file_path):
+    real_num_of_chunks = num_of_chunks - 2;  # header chunks
+    file_size = os.path.getsize(file_path)
     global ChunkSize
-    ChunkSize = Chunk
+    ChunkSize = math.ceil(file_size / real_num_of_chunks)
+
+
+def GetChunkSize():
+    return ChunkSize
 
 
 def FileToIntList(file_path):
@@ -18,14 +28,11 @@ def FileToIntList(file_path):
     header = additional_bytes_to_add.to_bytes(ChunkSize, 'little', signed=False)
     data = header + data + endf
 
-    new_num_of_bytes = len(data) + ChunkSize  # plus one for additional header
-    len_header = new_num_of_bytes.to_bytes(ChunkSize, 'little', signed=False)
-    data = len_header + data
-
     int_ls = []
-    for i in range(new_num_of_bytes // ChunkSize):
+    for i in range(num_of_bytes // ChunkSize):
         byte_chunk = data[i * ChunkSize:(i + 1) * ChunkSize]
         int_ls += [int.from_bytes(byte_chunk, 'little', signed=False)]
+    print(int_ls)
     return int_ls
 
 

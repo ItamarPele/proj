@@ -2,15 +2,15 @@ from modulo import modulo
 
 
 class MD:
-    modulus: int = 100003
+    modulus: int = 2
 
     def __init__(self, value: int):
         self.value = value % MD.modulus
 
-
     @staticmethod
-    def set_modulus(self, value: int):
-        self.modulus = value
+    def set_modulus(value: int):
+        global modulus
+        modulus = value
 
     def __str__(self):
         return str(self.value)
@@ -38,4 +38,3 @@ class MD:
 
     def __truediv__(self, other: 'MD') -> 'MD':
         return MD.__floordiv__(self, other)
-
