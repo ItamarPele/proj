@@ -1,4 +1,8 @@
-ChunkSize = 2  # 8 bytes
+ChunkSize = 2  # 2 bytes
+
+def SetChunkSize(Chunk):
+    global ChunkSize
+    ChunkSize = Chunk
 
 
 def FileToIntList(file_path):
@@ -26,12 +30,12 @@ def FileToIntList(file_path):
 
 
 def IntListToFile(int_ls, file_path):
+    global ChunkSize
     num_of_bytes = int_ls[0]
     additional_bytes = int_ls[1]
 
     int_ls = int_ls[2:]
     data = bytes()
-
     for i in range(len(int_ls)):
         b = int_ls[i]  # this is error
         b = b.to_bytes(ChunkSize, 'little', signed=False)
